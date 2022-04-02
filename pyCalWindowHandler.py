@@ -1,4 +1,4 @@
-#!/bin/sh/python3
+#!/bin/python3
 
 # Get list of processes;
 # if (pyMiniCalendar)
