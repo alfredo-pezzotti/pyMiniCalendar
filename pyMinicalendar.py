@@ -67,18 +67,22 @@ print("3 " + str(cursorDistance_X) + ", " + str(cursorDistance_Y))
 root = tk.Tk()
 root.wm_title("MiniCalendar")
 root.geometry(str(windowSize_X) + "x" + str(windowSize_Y))
-# sets the window position:
+
+
+# set the window position
+
+# the offset is used to skip over/under the tray:
 offset_Y = 40
 if cursorDistance_X < windowSize_X:
+    # we're here if we are near the right edge of the screen
     windowPos_X = cursorPos.x - cursorDistance_X - (windowSize_X - cursorDistance_X)
 else:
     windowPos_X = cursorPos.x
 if cursorDistance_Y < windowSize_Y:
+    # we're here if we are near the bottom edge of the screen
     windowPos_Y = cursorPos.y - cursorDistance_Y - (windowSize_Y + offset_Y - cursorDistance_Y)
 else:
     windowPos_Y = cursorPos.y + offset_Y
-#   window.setXpos(cursorPos.x - dist.x) # if dist.x < 250px
-#   window.setYpos(cursorPos.y - dist.y - 200px) # if dist.y < 200px
 # DEBUG:
 print("4 " + str(windowPos_X) + ", " + str(windowPos_Y))
 
