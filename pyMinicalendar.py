@@ -8,7 +8,7 @@ import tkinter
 import calendar
 import libs.pyautogui as pyag
 
-#   __________________________________
+#   ,_________________________________
 #   | < Month >  < year(drop list) > |
 #   |--------------------------------|
 #   |                                |
@@ -18,6 +18,8 @@ import libs.pyautogui as pyag
 #   |                                |
 #   |________________________________|
 #                   250 px
+#   .  # this point roughly indicates the cursor position,
+#      # whereas the comma indicates the window Root coordinate.
 
 """ Classes """
 
@@ -38,10 +40,10 @@ class ScreenProperties:
 """ GUI section: """
 
 # Gets the current ABSOLUTE mouse coordinates:
-mousePos = MousePointerPos(0, 0)
-mousePos.x, mousePos.y = pyag.position()
+cursorPos = MousePointerPos(0, 0)
+cursorPos.x, cursorPos.y = pyag.position()
 # DEBUG:
-print(str(mousePos.x) + ", " + str(mousePos.y))
+print(str(cursorPos.x) + ", " + str(cursorPos.y))
 
 # gets the current screen resolution:
 thisScreen = ScreenProperties(0, 0)
@@ -49,10 +51,17 @@ thisScreen.width, thisScreen.height = pyag.size()
 # DEBUG:
 print(str(thisScreen.width) + ", " + str(thisScreen.height))
 
-#   distance = mousePos - borderPos;
+# computes how much the cursor is distant from the screen border.
+# In most cases the clock is in the lower right corner, so the root
+# needs to be moved to the left by a certain amount. In other cases
+# this is not needed (e.g.: when the clock is in the upper right corner).
+cursorDistance_X = cursorPos.x - thisScreen.width
+cursorDistance_Y = cursorPos.y - thisScreen.height
+# DEBUG:
+print(str(cursorDistance_X) + ", " + str(cursorDistance_Y))
 
-#   window.setXpos(mousePos.x - dist.x) # if dist.x < 250px
-#   window.setYpos(mousePos.y - dist.y - 200px) # if dist.y < 200px
+#   window.setXpos(cursorPos.x - dist.x) # if dist.x < 250px
+#   window.setYpos(cursorPos.y - dist.y - 200px) # if dist.y < 200px
 #   spawnWindowRootAtPos();
 #   add widgets();
 #
