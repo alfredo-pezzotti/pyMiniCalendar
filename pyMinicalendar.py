@@ -21,10 +21,16 @@ import libs.pyautogui as pyag
 
 """ Main """
 
+class MousePointerPos:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
 # GUI section:
 #   mousePos = GetMousePos()
-mousePosx, mousePosy = pyag.position()
-print(str(mousePosx) + ", " + str(mousePosy))
+mousePos = MousePointerPos(0, 0)
+mousePos.x, mousePos.y = pyag.position()
+print(str(mousePos.x) + ", " + str(mousePos.y))
 #   GetDisplayResolution() # with Tk.winfo_screen{height,width}()
 #   distance = mousePos - borderPos;
 #   window.setXpos(mousePos.x - dist.x) # if dist.x < 250px
