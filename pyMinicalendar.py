@@ -4,7 +4,9 @@
     Main file
 """
 
-import Tk, calendar
+import tkinter
+import calendar
+import libs.pyautogui as pyag
 
 #   __________________________________
 #   | < Month >  < year(drop list) > |
@@ -21,6 +23,8 @@ import Tk, calendar
 
 # GUI section:
 #   mousePos = GetMousePos()
+mousePosx, mousePosy = pyag.position()
+print(str(mousePosx) + ", " + str(mousePosy))
 #   GetDisplayResolution() # with Tk.winfo_screen{height,width}()
 #   distance = mousePos - borderPos;
 #   window.setXpos(mousePos.x - dist.x) # if dist.x < 250px
