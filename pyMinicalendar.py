@@ -4,7 +4,7 @@
     Main file
 """
 
-import tkinter
+import tkinter as tk
 import calendar
 import libs.pyautogui as pyag
 
@@ -60,6 +60,25 @@ cursorDistance_Y = cursorPos.y - thisScreen.height
 # DEBUG:
 print(str(cursorDistance_X) + ", " + str(cursorDistance_Y))
 
+# create a root window
+root = tk.Tk()
+root.wm_title("MiniCalendar")
+root.geometry("250x200")
+frame = tk.Frame(root)
+root.config(bg="#000000")
+frame.pack()
+
+#from tkinter import * 
+# TkForm = Tk()
+#
+#  #Set Height and Width of Window
+#   TkForm.geometry("350x150") 
+#
+#    #Set the Title according to desire
+#     TkForm.title("TK Size in Python")
+#
+#      TkForm.mainloop()
+
 #   window.setXpos(cursorPos.x - dist.x) # if dist.x < 250px
 #   window.setYpos(cursorPos.y - dist.y - 200px) # if dist.y < 200px
 #   spawnWindowRootAtPos();
@@ -71,3 +90,4 @@ print(str(cursorDistance_X) + ", " + str(cursorDistance_Y))
 #       this function is used by the <, > and list(year) buttons
 #   listen to button and list callbacks;
 
+root.mainloop()
