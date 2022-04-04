@@ -166,16 +166,21 @@ monthYearFrame = tk.Frame(topFrame)
 monthYearFrame.config(bg="#000000")
 monthYearFrame.pack(side='left')
 
-prevMonth = tk.Button(monthYearFrame, text="<", command=None)
+#prevMonth = tk.Button(monthYearFrame, text="<", command=None)
+prevMonth = tk.Label(monthYearFrame, text="< ", command=None)
 prevMonth.config(fg="#00FF00", bg="#000000", \
                  activebackground="#003333", activeforeground="#00FF00", \
-                 height=1, width=1)
+                 height=1, width=2)
+# bind command to mouse click:
+prevMonth.bind("<Button-1>", None)
 prevMonth.pack(side='left')
 
 # Define the style for combobox widget
 widgetStyle = tk.ttk.Style()
 widgetStyle.theme_use('clam')
-widgetStyle.configure("TCombobox", fieldbackground= "#111111", background= "#000000")
+widgetStyle.configure("TCombobox", \
+                            fieldbackground= "#111111", \
+                            background= "#000000")
 # creates the combobox for months:
 monthCombobox = tk.ttk.Combobox(monthYearFrame, \
                           background="#000000", foreground="#00FF00",\
@@ -196,8 +201,25 @@ monthCombobox = tk.ttk.Combobox(monthYearFrame, \
                           #height=1, 
                           width=9)
 monthCombobox.current(rightNowDate.month - 1)
-monthCombobox.pack()
+monthCombobox.pack(side='left')
 
+# create NEXT month button:
+nextMonth = tk.Label(monthYearFrame, text=" >", command=None)
+nextMonth.config(fg="#00FF00", bg="#000000", \
+                 height=1, width=2)
+# only for debugging lol:
+def printCazzo(event):
+    print("cazzo: " + str(event))
+# bind command to mouse click:
+nextMonth.bind("<Button-1>", printCazzo)
+nextMonth.pack(side='left')
+
+# create Set Time to Now button:
+setCalToNowBtn = tk.Label(monthYearFrame, text=" O ", command=None)
+setCalToNowBtn.config(fg="#00FF00", bg="#000000",\
+                   height=1, width=2)
+setCalToNowBtn.bind("<Button-1>", printCazzo)
+setCalToNowBtn.pack(side='left')
 
 #
 # LOGIC section:
