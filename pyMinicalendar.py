@@ -13,11 +13,11 @@
 """
 
 import tkinter as tk
-import calendar
+import calendar, datetime
 import libs.pyautogui as pyag
 
 #   ,_________________________________
-#   | < Month >  < year(drop list) > |
+#   | < Month >o < year(drop list) > |
 #   |--------------------------------|
 #   |                                |
 #   |                                |  200 px
@@ -28,6 +28,7 @@ import libs.pyautogui as pyag
 #                   250 px
 #   .  # this point roughly indicates the cursor position,
 #      # whereas the comma indicates the window Root coordinate.
+#      # The character "o" is a button to set time to now
 
 """ Classes """
 
@@ -117,11 +118,38 @@ topFrame.pack(side="top")
 bottomFrame = tk.Frame(root)
 bottomFrame.pack(side="bottom")
 
+# creates an object of class datetime.Date now()
+rightNowDate = datetime.datetime.now()
+currDay   = rightNowDate.day
+currMonth = rightNowDate.month
+currYear  = rightNowDate.year
+
+# creates a calendar object:
+currCalendar = calendar.Calendar(firstweekday = 0)  # first weekday is Monday
+
+# returns an iterator for the month month (1–12) in the year year. 
+# This iterator will return all days (as datetime.date objects) for the month 
+# and all days before the start of the month or after the end of the month that 
+# are required to get a complete week:
+currMonthIterator = currCalendar.itermonthdates(currYear, currMonth)
+
+# DEBUG:
+# this will print a horrible, unformatted calendar on the terminal:
+if debug_ON:
+    print(str(rightNowDate.now()) + ", " + str(currMonthIterator))
+    i = 0
+    for day in currMonthIterator:
+        print(str(day.day) + " ", end="")
+        i += 1
+        if i == 7:
+            print("\n")
+            i = 0
+
 
 #   add widgets();
 #
 # LOGIC section:
-#   create object of class Month now()
+#   
 #   def <- populate window widgets with Now;
 #       this function is used by the <, > and list(year) buttons
 #   listen to button and list callbacks;
