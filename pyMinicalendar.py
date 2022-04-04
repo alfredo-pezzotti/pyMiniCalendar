@@ -13,6 +13,7 @@
 """
 
 import tkinter as tk
+import tkinter.ttk
 import calendar, datetime
 import libs.pyautogui as pyag
 
@@ -42,6 +43,28 @@ class ScreenProperties:
         self.width  = x
         self.height = y
 
+
+""" Functions """
+
+# object that holds the current displayed date
+currentDate = datetime.datetime
+
+def setDateToNow():
+    # creates an object of class datetime.Date now()
+    rightNowDate = datetime.datetime.now()
+    currMonth = rightNowDate.month
+    currYear  = rightNowDate.year
+
+    # creates a calendar object:
+    currCalendar = calendar.Calendar(firstweekday = 0)  # first weekday is Monday
+
+    # returns an iterator for the month month (1–12) in the year year. 
+    # This iterator will return all days (as datetime.date objects) for the month 
+    # and all days before the start of the month or after the end of the month that 
+    # are required to get a complete week:
+    currMonthIterator = currCalendar.itermonthdates(currYear, currMonth)
+
+    return rightNowDate, currMonthIterator
 
 """ START OF MAIN """
 
@@ -111,42 +134,71 @@ root.geometry("+" + str(windowPos_X) + "+" + str(windowPos_Y))
 frame = tk.Frame(root)
 root.config(bg="#000000")
 frame.pack()
-# adds the top frame. It will contain the Month and Year items:
+# adds the top frame. It will contain the frame containing Month and Year items:
 topFrame = tk.Frame(root)
 topFrame.pack(side="top")
 #adds the bottom frame, it will contain the Dayz items:
 bottomFrame = tk.Frame(root)
 bottomFrame.pack(side="bottom")
 
-# creates an object of class datetime.Date now()
-rightNowDate = datetime.datetime.now()
-currDay   = rightNowDate.day
-currMonth = rightNowDate.month
-currYear  = rightNowDate.year
 
-# creates a calendar object:
-currCalendar = calendar.Calendar(firstweekday = 0)  # first weekday is Monday
-
-# returns an iterator for the month month (1–12) in the year year. 
-# This iterator will return all days (as datetime.date objects) for the month 
-# and all days before the start of the month or after the end of the month that 
-# are required to get a complete week:
-currMonthIterator = currCalendar.itermonthdates(currYear, currMonth)
+# retrieves the current date and an iterator for days in the current month
+rightNowDate, currMonthIterator = setDateToNow()
 
 # DEBUG:
-# this will print a horrible, unformatted calendar on the terminal:
+# this will print a horrible calendar on the terminal:
 if debug_ON:
     print(str(rightNowDate.now()) + ", " + str(currMonthIterator))
+    print("")
     i = 0
     for day in currMonthIterator:
+        if day.day < 10:
+            print(" ", end="")
         print(str(day.day) + " ", end="")
         i += 1
         if i == 7:
-            print("\n")
+            print("")
             i = 0
 
 
-#   add widgets();
+# Creates the button that decrements currMonth:
+monthYearFrame = tk.Frame(topFrame)
+monthYearFrame.config(bg="#000000")
+monthYearFrame.pack(side='left')
+
+prevMonth = tk.Button(monthYearFrame, text="<", command=None)
+prevMonth.config(fg="#00FF00", bg="#000000", \
+                 activebackground="#003333", activeforeground="#00FF00", \
+                 height=1, width=1)
+prevMonth.pack(side='left')
+
+# Define the style for combobox widget
+widgetStyle = tk.ttk.Style()
+widgetStyle.theme_use('clam')
+widgetStyle.configure("TCombobox", fieldbackground= "#111111", background= "#000000")
+# creates the combobox for months:
+monthCombobox = tk.ttk.Combobox(monthYearFrame, \
+                          background="#000000", foreground="#00FF00",\
+                          values=[\
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December"
+                          ],
+                          #height=1, 
+                          width=9)
+monthCombobox.current(rightNowDate.month - 1)
+monthCombobox.pack()
+
+
 #
 # LOGIC section:
 #   
