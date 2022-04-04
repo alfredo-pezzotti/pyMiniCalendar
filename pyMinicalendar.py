@@ -201,6 +201,7 @@ monthCombobox = tk.ttk.Combobox(monthYearFrame, \
                           #height=1, 
                           width=9)
 monthCombobox.current(rightNowDate.month - 1)
+# ttk.Combobox.set(value) sets the combobox value
 # binds combobox to command None whenever its value changes:
 monthCombobox.bind("<<ComboboxSelected>>", None)
 monthCombobox.pack(side='left')
@@ -216,6 +217,12 @@ def printCazzo(event):
 nextMonth.bind("<Button-1>", printCazzo)
 nextMonth.pack(side='left')
 
+# inserts a spacer between month and NOW :
+spacerMoLabel = tk.Label(monthYearFrame, text="  ", command=None)
+spacerMoLabel.config(fg="#00FF00", bg="#000000",\
+                   height=1, width=2)
+spacerMoLabel.pack(side='left')
+
 # create Set Time to Now button:
 setCalToNowBtn = tk.Label(monthYearFrame, text=" O ", command=None)
 setCalToNowBtn.config(fg="#00FF00", bg="#000000",\
@@ -223,6 +230,48 @@ setCalToNowBtn.config(fg="#00FF00", bg="#000000",\
 setCalToNowBtn.bind("<Button-1>", printCazzo)
 setCalToNowBtn.pack(side='left')
 
+# inserts a spacer between NOW and year:
+spaceroYLabel = tk.Label(monthYearFrame, text=" ", command=None)
+spaceroYLabel.config(fg="#00FF00", bg="#000000",\
+                   height=1, width=1)
+spaceroYLabel.pack(side='left')
+
+# create previous year button:
+prevYear = tk.Label(monthYearFrame, text="< ", command=None)
+prevYear.config(fg="#00FF00", bg="#000000", \
+                 height=1, width=2)
+# bind command to mouse click:
+prevYear.bind("<Button-1>", None)
+prevYear.pack(side='left')
+
+
+yearStart = 1930
+yearStop  = 2030
+yearRange = []
+for i in range (yearStart, yearStop):
+    yearRange.append(str(i))
+# creates the combobox for years:
+yearCombobox = tk.ttk.Combobox(monthYearFrame, \
+                          background="#000000", foreground="#00FF00",\
+                          values=yearRange,
+                          #height=1, 
+                          width=4)
+
+yearCombobox.current(rightNowDate.year - yearStart)
+# binds combobox to command None whenever its value changes:
+yearCombobox.bind("<<ComboboxSelected>>", None)
+yearCombobox.pack(side='left')
+
+# create NEXT month button:
+nextYear = tk.Label(monthYearFrame, text=" > ", command=None)
+nextYear.config(fg="#00FF00", bg="#000000", \
+                 height=1, width=4)
+# bind command to mouse click:
+nextYear.bind("<Button-1>", None)
+nextYear.pack(side='right')
+
+# sets the current displayed date to now:
+currentDate = rightNowDate
 #
 # LOGIC section:
 #   
