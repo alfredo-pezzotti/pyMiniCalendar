@@ -2,6 +2,14 @@
 
 """
     Main file
+
+    pyMiniCalendar is a basic calendar designed to be used with ultra 
+    lightweight Desktop Environments/Window Managers requiring only
+    python3 and tkinter to be run: everything else is self-contained.
+    
+    This file is invoked by the the other python script, the Handler,
+    and creates the calendar window, populating it with the correct Month
+    object.
 """
 
 import tkinter as tk
@@ -36,23 +44,30 @@ class ScreenProperties:
 
 """ START OF MAIN """
 
+# DEBUG:
+debug_ON = True
 
 """ GUI section: """
 
+# defines the basic window geometry:
 windowSize_X = 250
 windowSize_Y = 200
 
 # Gets the current ABSOLUTE mouse coordinates:
 cursorPos = MousePointerPos(0, 0)
 cursorPos.x, cursorPos.y = pyag.position()
+
 # DEBUG:
-print("1 " + str(cursorPos.x) + ", " + str(cursorPos.y))
+if debug_ON:
+    print("1 " + str(cursorPos.x) + ", " + str(cursorPos.y))
 
 # gets the current screen resolution:
 thisScreen = ScreenProperties(0, 0)
 thisScreen.width, thisScreen.height = pyag.size()
+
 # DEBUG:
-print("2 "+ str(thisScreen.width) + ", " + str(thisScreen.height))
+if debug_ON:
+    print("2 "+ str(thisScreen.width) + ", " + str(thisScreen.height))
 
 # computes how much the cursor is distant from the screen border.
 # In most cases the clock is in the lower right corner, so the root
@@ -60,8 +75,10 @@ print("2 "+ str(thisScreen.width) + ", " + str(thisScreen.height))
 # this is not needed (e.g.: when the clock is in the upper right corner).
 cursorDistance_X = abs(cursorPos.x - thisScreen.width)
 cursorDistance_Y = abs(cursorPos.y - thisScreen.height)
+
 # DEBUG:
-print("3 " + str(cursorDistance_X) + ", " + str(cursorDistance_Y))
+if debug_ON:
+    print("3 " + str(cursorDistance_X) + ", " + str(cursorDistance_Y))
 
 # create a root window
 root = tk.Tk()
@@ -83,8 +100,10 @@ if cursorDistance_Y < windowSize_Y:
     windowPos_Y = cursorPos.y - cursorDistance_Y - (windowSize_Y + offset_Y - cursorDistance_Y)
 else:
     windowPos_Y = cursorPos.y + offset_Y
+
 # DEBUG:
-print("4 " + str(windowPos_X) + ", " + str(windowPos_Y))
+if debug_ON:
+    print("4 " + str(windowPos_X) + ", " + str(windowPos_Y))
 
 root.geometry("+" + str(windowPos_X) + "+" + str(windowPos_Y))
 # adds a frame
