@@ -201,6 +201,8 @@ monthCombobox = tk.ttk.Combobox(monthYearFrame, \
                           #height=1, 
                           width=9)
 monthCombobox.current(rightNowDate.month - 1)
+# binds combobox to command None whenever its value changes:
+monthCombobox.bind("<<ComboboxSelected>>", None)
 monthCombobox.pack(side='left')
 
 # create NEXT month button:
